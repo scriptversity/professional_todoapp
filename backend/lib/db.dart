@@ -20,6 +20,6 @@ class Database {
     } catch (e) {
       print('❌ Failed to connect to database: $e');
       // Handle error or retry connection
-  }
+    }
   }
 }
