@@ -1,4 +1,5 @@
 // lib/handlers.dart
+import 'dart:convert'; // ✅ for jsonDecode
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:bcrypt/bcrypt.dart';
@@ -18,7 +19,7 @@ class Handlers {
     final api = Router();
 
     // POST /register
-    router.post('/register', (Request request) async {
+    api.post('/register', (Request request) async {
       final body = await request.readAsString();
       final data = Uri.splitQueryString(body);
 
@@ -53,7 +54,7 @@ class Handlers {
     });
 
     // POST /login
-    router.post('/login', (Request request) async {
+    api.post('/login', (Request request) async {
       final body = await request.readAsString();
       // final data = Uri.splitQueryString(body);
       // Use this if your React/Axios frontend sends JSON data
