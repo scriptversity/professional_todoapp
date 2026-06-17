@@ -3,6 +3,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:bcrypt/bcrypt.dart';
 import 'package:postgres/postgres.dart' as pg;  // ✅ add this
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'db.dart';
 
 class Handlers {
@@ -84,12 +85,23 @@ class Handlers {
         return Response(401, body: 'Invalid credentials');
       }
 
-      return Response.ok('Login successful. User ID: $userId');
+      // Generate JWT
+      final jwt = JWT(
+        {
+          'id': userId,
+          'email': email,
+        },
+        issuer: 'professional_todo',
+      );
+
+      final token = jwt.sign(SecretKey('your_secret_key_here'));
+
+      return Response.ok(token);
     });
 
     // Register the sub-router for /api/v1
     router.mount('/api/v1/', api);
-    
+
     return router;
   }
 }

@@ -13,6 +13,7 @@ dependencies:
   shelf_router: ^1.1.4
   postgres: ^3.5.11 # Upgraded to v3 to avoid using deprecated connection models
   bcrypt: ^1.2.0 # Upgraded for Dart 3+ compliance
+  dart_jsonwebtoken: ^3.4.1
 
 dev_dependencies:
   lints: ^6.0.0
