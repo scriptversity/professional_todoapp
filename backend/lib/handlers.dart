@@ -13,6 +13,9 @@ class Handlers {
   Router get router {
     final router = Router();
 
+    // Create a sub-router for /api/v1
+    final api = Router();
+
     // POST /register
     router.post('/register', (Request request) async {
       final body = await request.readAsString();
@@ -84,6 +87,9 @@ class Handlers {
       return Response.ok('Login successful. User ID: $userId');
     });
 
+    // Register the sub-router for /api/v1
+    router.mount('/api/v1/', api);
+    
     return router;
   }
 }
