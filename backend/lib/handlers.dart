@@ -51,7 +51,9 @@ class Handlers {
     // POST /login
     router.post('/login', (Request request) async {
       final body = await request.readAsString();
-      final data = Uri.splitQueryString(body);
+      // final data = Uri.splitQueryString(body);
+      // Use this if your React/Axios frontend sends JSON data
+      final data = jsonDecode(body) as Map<String, dynamic>; // JSON → Map better than URI
 
       final email = data['email'];
       final password = data['password'];
