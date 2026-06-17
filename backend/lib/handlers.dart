@@ -100,6 +100,38 @@ class Handlers {
       return Response.ok(token);
     });
 
+    // POST /projects
+    api.post('/projects', (Request request) async {
+      final body = await request.readAsString();
+      final data = jsonDecode(body) as Map<String, dynamic>;
+
+      final userId = data['user_id'];
+      final name = data['name'];
+      final description = data['description'];
+
+      if (userId == null || name == null) {
+        return Response(400, body: 'Missing user_id or name');
+      }
+
+      try {
+        final result = await db.connection.execute(
+          pg.Sql.named(
+            'INSERT INTO projects (user_id, name, description) VALUES (@user_id, @name, @description) RETURNING id'
+          ),
+          parameters: {
+            'user_id': userId,
+            'name': name,
+            'description': description,
+          },
+        );
+
+        final projectId = result.first[0].toString();
+        return Response.ok('Project created successfully. ID: $projectId');
+      } catch (e) {
+        return Response(500, body: 'Error creating project: $e');
+      }
+    });
+
     // Register the sub-router for /api/v1
     router.mount('/api/v1/', api);
 
