@@ -1,0 +1,34 @@
+# Dart / Flutter
+backend/.dart_tool/
+backend/.packages
+backend/build/
+backend/test_hash.dart
+
+# Dependencies
+pubspec.lock
+
+# Logs & temp
+*.log
+*.tmp
+*.swp
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+*.env
+
+# Compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+
+# additionals
+annotations.txt
+sandbox.txt
+importantCommands.txt
+backendo
